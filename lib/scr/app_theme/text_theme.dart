@@ -24,8 +24,8 @@ TextTheme get appTextTheme => TextTheme(
         fontWeight: FontWeight.w400,
       ),
       headlineSmall: GoogleFonts.poppins(
-        fontSize: 24.0,
-        fontWeight: FontWeight.bold,
+        fontSize: 22.0,
+        fontWeight: FontWeight.w400,
       ),
       titleLarge: GoogleFonts.poppins(
         fontSize: 22.0,

@@ -208,8 +208,8 @@ class CustomTextFormField extends StatelessWidget {
         }
         break;
       case ValidationType.number:
-        if (value == null || !RegExp(r'^\d+$').hasMatch(value)) {
-          return 'Please enter a valid number';
+        if (value == null || !RegExp(r'^\92\d{10}$').hasMatch(value)) {
+          return 'Please enter a valid phone number starting with +92';
         }
         break;
       case ValidationType.none:

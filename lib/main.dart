@@ -1,14 +1,20 @@
-import 'package:app_structure/app_theme/theme.dart';
-import 'package:app_structure/app_theme/theme_notifier.dart';
-import 'package:app_structure/features/sign_forms/pages/sign_up.dart';
-import 'package:app_structure/models/user_provider.dart';
+import 'package:app_structure/scr/app_theme/theme.dart';
+import 'package:app_structure/scr/app_theme/theme_notifier.dart';
+import 'package:app_structure/scr/features/auths/controllers/google_provider.dart';
+import 'package:app_structure/scr/features/auths/controllers/otp_provider.dart';
+import 'package:app_structure/scr/features/firebase_sign/controllers/signin_provider.dart';
+import 'package:app_structure/scr/features/firebase_sign/controllers/signup_provider.dart';
+import 'package:app_structure/scr/features/firebase_sign/pages/sign_up.dart';
+import 'package:app_structure/scr/features/home/controllers/greeting_provider.dart';
+import 'package:app_structure/scr/features/home/controllers/home_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
   ThemeNotifier themeNotifier = await ThemeNotifier.create();
 
   runApp(MyApp(themeNotifier: themeNotifier));
@@ -27,8 +33,17 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<ThemeNotifier>.value(
             value: themeNotifier ?? ThemeNotifier(ThemeMode.light),
           ),
-          ChangeNotifierProvider(
-            create: (_) => UserProvider(),
+          // ChangeNotifierProvider(
+          //   create: (_) => UserProvider(),
+          // ),
+          ChangeNotifierProvider(create: (_) => SignUpProvider()),
+          ChangeNotifierProvider(create: (_) => GreetingProvider()),
+          ChangeNotifierProvider(create: (_) => SignInProvider()),
+          ChangeNotifierProvider(create: (_) => HomeProvider()),
+          ChangeNotifierProvider(create: (_) => OtpAuthProvider()),
+
+          ChangeNotifierProvider<GoogleProvider>(
+            create: (_) => GoogleProvider(),
           ),
         ],
         child: Consumer<ThemeNotifier>(
@@ -39,10 +54,7 @@ class MyApp extends StatelessWidget {
               theme: AppTheme.instance.lightTheme,
               darkTheme: AppTheme.instance.darkTheme,
               themeMode: themeNotifier.themeMode,
-              home: SignUp(
-                toggleTheme: themeNotifier.toggleTheme,
-                isDarkMode: themeNotifier.themeMode == ThemeMode.dark,
-              ),
+              home: const FirebaseSignUp(),
             );
           },
         ),

@@ -1,5 +1,5 @@
-import 'package:app_structure/app_theme/color_scheme.dart';
-import 'package:app_structure/app_theme/text_theme.dart';
+import 'package:app_structure/scr/app_theme/color_scheme.dart';
+import 'package:app_structure/scr/app_theme/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {

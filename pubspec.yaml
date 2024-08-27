@@ -40,7 +40,11 @@ dependencies:
   shared_preferences: ^2.1.0
   provider: ^6.0.5 
   uuid:
+  cloud_firestore: 
   loader_overlay:
+  firebase_core: 
+  firebase_auth: 
+  google_sign_in:
 
 dev_dependencies:
   flutter_test:
