@@ -44,7 +44,7 @@ android {
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
         manifestPlaceholders = [
-    'appAuthRedirectScheme': 'fb' + "1141834456911335" // Replace with your Facebook App ID
+    'appAuthRedirectScheme': 'fb' + "1141834456911335" 
 ]
 
 
@@ -61,4 +61,8 @@ android {
 
 flutter {
     source = "../.."
+}
+dependencies {
+    implementation 'com.facebook.android:facebook-login:latest.release'
+
 }

@@ -1,5 +1,6 @@
 import 'package:app_structure/scr/app_theme/theme.dart';
 import 'package:app_structure/scr/app_theme/theme_notifier.dart';
+import 'package:app_structure/scr/features/auths/controllers/fb_provider.dart';
 import 'package:app_structure/scr/features/auths/controllers/google_provider.dart';
 import 'package:app_structure/scr/features/auths/controllers/otp_provider.dart';
 import 'package:app_structure/scr/features/firebase_sign/controllers/signin_provider.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => SignInProvider()),
           ChangeNotifierProvider(create: (_) => HomeProvider()),
           ChangeNotifierProvider(create: (_) => OtpAuthProvider()),
-
+          ChangeNotifierProvider(create: (_) => FacebookSignInProvider()),
           ChangeNotifierProvider<GoogleProvider>(
             create: (_) => GoogleProvider(),
           ),

@@ -1,11 +1,12 @@
 import 'package:app_structure/scr/app_theme/color_scheme.dart';
 import 'package:app_structure/scr/app_theme/text_theme.dart';
 import 'package:app_structure/scr/common/widgets/custom_text_button.dart';
+import 'package:app_structure/scr/features/auths/controllers/fb_provider.dart';
 import 'package:app_structure/scr/features/auths/pages/otp_auth.dart';
 import 'package:app_structure/scr/features/firebase_sign/pages/sign_up.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:app_structure/scr/features/home/pages/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:provider/provider.dart';
 
 class FacebookAuthentication extends StatefulWidget {
   const FacebookAuthentication({super.key});
@@ -15,21 +16,10 @@ class FacebookAuthentication extends StatefulWidget {
 }
 
 class _FacebookAuthenticationState extends State<FacebookAuthentication> {
-  Future facebookSignIn() async {
-    try {
-      final result =
-          await FacebookAuth.i.login(permissions: ['public_profile', 'email']);
-      if (result.status == LoginStatus.success) {
-        final userData = await FacebookAuth.i.getUserData();
-        print(userData);
-      }
-    } catch (error) {
-      print(error);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final facebookProvider = Provider.of<FacebookSignInProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -53,14 +43,19 @@ class _FacebookAuthenticationState extends State<FacebookAuthentication> {
               SizedBox(height: 20),
               CustomTextButton(
                 backgroundColor: Colors.blue[700],
-                onPressed: () async {
-                  User? user = await facebookSignIn();
-                  if (user != null) {
-                    print('Successfully signed in with Facebook!');
-                    print('User: ${user.displayName}');
-                  } else {
-                    print('Failed to sign in with Facebook');
-                  }
+                onPressed: () {
+                  facebookProvider.signInWithFacebook().then((_) {
+                    if (facebookProvider.user != null) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Home()),
+                      );
+                    } else if (facebookProvider.errorMessage != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(facebookProvider.errorMessage!)),
+                      );
+                    }
+                  });
                 },
                 text: "Sign In",
               ),

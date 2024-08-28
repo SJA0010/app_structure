@@ -1,6 +1,6 @@
 <resources>
    <string name="app_name">YourAppName</string>
-   <string name="facebook_app_id">1141834456911335</string> <!-- Replace with your actual App ID -->
-   <string name="fb_login_protocol_scheme">fb1141834456911335</string> <!-- Replace 1234 with your App ID -->
-   <string name="facebook_client_token">f1f8ea5b830a301d4a4724a7539e073f</string> <!-- Replace with your actual Client Token -->
+   <string name="facebook_app_id">489003823751177</string> <!-- Replace with your actual App ID -->
+   <string name="fb_login_protocol_scheme">fb489003823751177</string> <!-- Replace 1234 with your App ID -->
+   <string name="facebook_client_token">383823c4a85e2a2645b715310d4ca39b</string> <!-- Replace with your actual Client Token -->
 </resources>
