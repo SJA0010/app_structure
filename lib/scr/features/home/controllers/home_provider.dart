@@ -32,9 +32,61 @@ class HomeProvider extends ChangeNotifier {
             UserModel.fromMap(data.data() as Map<String, dynamic>);
         _allUsers.add(model);
       }
+
+      notifyListeners(); // Notify listeners after fetching the data
     } catch (e) {
       // Handle errors if any
       print('Error fetching users: $e');
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Function to delete a user from Firestore
+  Future<void> deleteUser(String userId) async {
+    _setLoading(true);
+    try {
+      await FirebaseFirestore.instance
+          .collection("AllUsers")
+          .doc(userId)
+          .delete();
+      _allUsers.removeWhere((user) => user.userid == userId);
+      notifyListeners(); // Notify listeners after deleting the user
+    } catch (e) {
+      // Handle errors if any
+      print('Error deleting user: $e');
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Function to update a user in Firestore
+  Future<void> updateUser(
+      String userId, Map<String, dynamic> updatedData) async {
+    _setLoading(true);
+    try {
+      await FirebaseFirestore.instance
+          .collection("AllUsers")
+          .doc(userId)
+          .update(updatedData);
+
+      int index = _allUsers.indexWhere((user) => user.userid == userId);
+      if (index != -1) {
+        // Merge the existing user data with the updated data
+        UserModel updatedUser = _allUsers[index];
+        updatedUser = UserModel(
+          userid: userId,
+          userName: updatedData['userName'] ?? updatedUser.userName,
+          email: updatedData['email'] ?? updatedUser.email,
+          phone: updatedData['phone'] ?? updatedUser.phone,
+          password: updatedUser.password, // Assuming password remains unchanged
+        );
+        _allUsers[index] = updatedUser;
+        notifyListeners(); // Notify listeners after updating the user
+      }
+    } catch (e) {
+      // Handle errors if any
+      print('Error updating user: $e');
     } finally {
       _setLoading(false);
     }

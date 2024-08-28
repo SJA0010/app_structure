@@ -2,6 +2,7 @@ import 'package:app_structure/scr/app_theme/color_scheme.dart';
 import 'package:app_structure/scr/app_theme/text_theme.dart';
 import 'package:app_structure/scr/common/widgets/custom_text_button.dart';
 import 'package:app_structure/scr/common/widgets/custom_text_field.dart';
+import 'package:app_structure/scr/features/auths/pages/facebook_auth.dart';
 import 'package:app_structure/scr/features/auths/pages/google_auth.dart';
 import 'package:app_structure/scr/features/auths/pages/otp_auth.dart';
 import 'package:app_structure/scr/features/firebase_sign/controllers/signin_provider.dart';
@@ -47,11 +48,20 @@ class FirebaseSignIn extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 CustomTextFormField(
-                  controller: signInProvider.passwordController,
-                  hint: "Password",
-                  focusBorderColor: Colors.blue,
-                  validationType: ValidationType.password,
-                ),
+                    controller: signInProvider.passwordController,
+                    hint: "Password",
+                    focusBorderColor: Colors.blue,
+                    validationType: ValidationType.password,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        signInProvider.toggleVisibility();
+                      },
+                      icon: Icon(
+                        signInProvider.isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                    )),
                 SizedBox(height: 30),
                 CustomTextButton(
                     onPressed: () {
@@ -85,12 +95,12 @@ class FirebaseSignIn extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => GoogleAuth(),
+                            builder: (context) => FacebookAuthentication(),
                           ),
                         );
                       },
-                      text: "Google",
-                      backgroundColor: Colors.red[800],
+                      text: "Facebook",
+                      backgroundColor: Colors.blue[800],
                     ),
                     const SizedBox(width: 10),
                     CustomTextButton(
@@ -102,8 +112,8 @@ class FirebaseSignIn extends StatelessWidget {
                           ),
                         );
                       },
-                      text: "Facebook",
-                      backgroundColor: Colors.blue[800],
+                      text: "Google",
+                      backgroundColor: Colors.red[800],
                     ),
                   ],
                 ),

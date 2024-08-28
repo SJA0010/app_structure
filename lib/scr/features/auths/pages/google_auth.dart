@@ -38,15 +38,28 @@ class _GoogleAuthState extends State<GoogleAuth> {
                   style: appTextTheme.displaySmall,
                 ),
               ),
-              SizedBox(height: 20),
               Consumer<GoogleProvider>(
                 builder: (context, googleProvider, child) {
                   if (googleProvider.user != null) {
+                    // User is logged in, display profile info
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Welcome, ${googleProvider.user!.displayName}'),
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundImage:
+                              NetworkImage(googleProvider.user!.photoURL ?? ''),
+                        ),
                         SizedBox(height: 16),
+                        Text(
+                          googleProvider.user!.displayName ?? '',
+                          style: appTextTheme.titleMedium,
+                        ),
+                        Text(
+                          googleProvider.user!.email ?? '',
+                          style: appTextTheme.titleSmall,
+                        ),
+                        SizedBox(height: 20),
                         CustomTextButton(
                           backgroundColor: Colors.red[600],
                           onPressed: () async {
@@ -59,6 +72,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
                       ],
                     );
                   } else if (googleProvider.errorMessage != null) {
+                    // Error occurred during sign-in
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -74,6 +88,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
                       ],
                     );
                   } else {
+                    // No user is signed in, show sign-in button
                     return CustomTextButton(
                       onPressed: () {
                         googleProvider.signInWithGoogle();
@@ -115,7 +130,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
                       );
                     },
                     text: "Firebase Sign-up",
-                    backgroundColor: Colors.blue[800],
+                    backgroundColor: Colors.green[800],
                   ),
                 ],
               ),

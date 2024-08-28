@@ -19,9 +19,30 @@ class SignUpProvider extends ChangeNotifier {
 
   // Getter for isLoading flag
   bool get isLoading => _isLoading;
+  bool _isPasswordVisible = false;
+
+  bool get isPasswordVisible => _isPasswordVisible;
+
+  void toggleVisibility() {
+    _isPasswordVisible = !_isPasswordVisible;
+    notifyListeners();
+  }
 
   // Function to create a new user
   Future<void> signUpUser(BuildContext context) async {
+    // Validation check for empty fields
+    if (emailController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        nameController.text.isEmpty ||
+        phoneController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Fill all blanks'),
+        ),
+      );
+      return; // Exit the function if any field is empty
+    }
+
     _setLoading(true);
 
     try {

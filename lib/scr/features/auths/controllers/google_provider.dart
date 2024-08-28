@@ -1,4 +1,3 @@
-import 'package:app_structure/scr/features/auths/pages/google_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';

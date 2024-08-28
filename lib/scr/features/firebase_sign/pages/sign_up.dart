@@ -3,6 +3,7 @@ import 'package:app_structure/scr/app_theme/text_theme.dart';
 import 'package:app_structure/scr/app_theme/theme_notifier.dart';
 import 'package:app_structure/scr/common/widgets/custom_text_button.dart';
 import 'package:app_structure/scr/common/widgets/custom_text_field.dart';
+import 'package:app_structure/scr/features/auths/pages/facebook_auth.dart';
 import 'package:app_structure/scr/features/auths/pages/google_auth.dart';
 import 'package:app_structure/scr/features/auths/pages/otp_auth.dart';
 import 'package:app_structure/scr/features/firebase_sign/controllers/signup_provider.dart';
@@ -19,7 +20,6 @@ class FirebaseSignUp extends StatelessWidget {
     final signUpProvider = Provider.of<SignUpProvider>(context);
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool switchVal = themeNotifier.themeMode == ThemeMode.dark;
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -71,11 +71,21 @@ class FirebaseSignUp extends StatelessWidget {
               ),
               SizedBox(height: 20),
               CustomTextFormField(
-                controller: signUpProvider.passwordController,
-                hint: "password",
-                focusBorderColor: Colors.blue,
-                validationType: ValidationType.password,
-              ),
+                  controller: signUpProvider.passwordController,
+                  hint: "password",
+                  obscureText: signUpProvider.isPasswordVisible,
+                  focusBorderColor: Colors.blue,
+                  validationType: ValidationType.password,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      signUpProvider.toggleVisibility();
+                    },
+                    icon: Icon(
+                      signUpProvider.isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                  )),
               SizedBox(height: 20),
               CustomTextButton(
                   onPressed: () {
@@ -108,12 +118,12 @@ class FirebaseSignUp extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => GoogleAuth(),
+                          builder: (context) => FacebookAuthentication(),
                         ),
                       );
                     },
-                    text: "Google",
-                    backgroundColor: Colors.red[800],
+                    text: "Facebook",
+                    backgroundColor: Colors.blue[800],
                   ),
                   const SizedBox(width: 10),
                   CustomTextButton(
@@ -125,8 +135,8 @@ class FirebaseSignUp extends StatelessWidget {
                         ),
                       );
                     },
-                    text: "Facebook",
-                    backgroundColor: Colors.blue[800],
+                    text: "Google",
+                    backgroundColor: Colors.red[800],
                   ),
                 ],
               ),

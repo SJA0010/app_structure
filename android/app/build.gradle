@@ -4,7 +4,6 @@ plugins {
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
     id 'com.google.gms.google-services'
-
 }
 
 def localProperties = new Properties()
@@ -44,6 +43,11 @@ android {
         targetSdk = 33
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
+        manifestPlaceholders = [
+    'appAuthRedirectScheme': 'fb' + "1141834456911335" // Replace with your Facebook App ID
+]
+
+
     }
 
     buildTypes {

@@ -17,6 +17,14 @@ class SignInProvider extends ChangeNotifier {
 
   // Getter for isLoading flag
   bool get isLoading => _isLoading;
+  bool _isPasswordVisible = false;
+
+  bool get isPasswordVisible => _isPasswordVisible;
+
+  void toggleVisibility() {
+    _isPasswordVisible = !_isPasswordVisible;
+    notifyListeners();
+  }
 
   // Function to sign in a user
   Future<void> signInUser(BuildContext context) async {

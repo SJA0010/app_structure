@@ -43,6 +43,7 @@ dependencies:
   cloud_firestore: 
   loader_overlay:
   firebase_core: 
+  flutter_facebook_auth: ^7.1.0
   firebase_auth: 
   google_sign_in:
 

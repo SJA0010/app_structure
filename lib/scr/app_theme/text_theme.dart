@@ -38,7 +38,7 @@ TextTheme get appTextTheme => TextTheme(
       ),
       titleSmall: GoogleFonts.poppins(
         fontSize: 18.0,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         letterSpacing: 0.1,
       ),
       labelLarge: GoogleFonts.poppins(

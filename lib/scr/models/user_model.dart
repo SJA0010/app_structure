@@ -3,13 +3,13 @@ import 'dart:convert';
 
 class UserModel {
   String? userName;
-  String? userid;
+  String userid;
   String? email;
   String? password;
   String? phone;
   UserModel({
     this.userName,
-    this.userid,
+    required this.userid,
     this.email,
     this.password,
     this.phone,
@@ -44,7 +44,7 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       userName: map['userName'] != null ? map['userName'] as String : null,
-      userid: map['userid'] != null ? map['userid'] as String : null,
+      userid: map['userid'] as String,
       email: map['email'] != null ? map['email'] as String : null,
       password: map['password'] != null ? map['password'] as String : null,
       phone: map['phone'] != null ? map['phone'] as String : null,
@@ -58,7 +58,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'userModel(userName: $userName, userid: $userid, email: $email, password: $password, phone: $phone)';
+    return 'UserModel(userName: $userName, userid: $userid, email: $email, password: $password, phone: $phone)';
   }
 
   @override

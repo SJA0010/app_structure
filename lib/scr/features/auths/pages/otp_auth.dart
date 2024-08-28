@@ -74,7 +74,7 @@ class OtpAuth extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Wrap(
-                  spacing: 10, // Add spacing between the buttons
+                  spacing: 10,
                   children: [
                     CustomTextButton(
                       onPressed: () {
@@ -98,7 +98,7 @@ class OtpAuth extends StatelessWidget {
                         );
                       },
                       text: "Firebase Sign-up",
-                      backgroundColor: Colors.blue[800],
+                      backgroundColor: Colors.green[800],
                     ),
                   ],
                 ),
